@@ -90,7 +90,7 @@
 
       if (latDiff <= radius && lonDiff <= radius) {
         // Send Login Request to Backend
-        fetch('/login', {
+        fetch('https://be-geo-attendance.socrates-exp.asia/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password, userLat, userLon })
