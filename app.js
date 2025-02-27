@@ -1,3 +1,7 @@
+
+// const URL= "'https://be-geo-attendance.socrates-exp.asia"
+const URL= 'http://localhost:3000'
+
 // Register Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js')
@@ -35,14 +39,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
 // Check Location and Send Login Request
 function checkLocationAndLogin(username, password, userLat, userLon) {
-  const targetLat = -7.371674041595145; // Example target latitude
-  const targetLon = 112.77672769904683; // Example target longitude
+  const targetLat = -7.3651716839194465; // Example target latitude
+  const targetLon = 112.75982261252922; // Example target longitude
   const radius = 0.01; // Radius in degrees (approx. 1 km)
 
   // Check if User is Within Radius
   if (isUserWithinRadius(userLat, userLon, targetLat, targetLon, radius)) {
     // Send Login Request to Backend
-    fetch('https://be-geo-attendance.socrates-exp.asia/login', {
+    fetch(URL+'/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, userLat, userLon })
@@ -75,4 +79,101 @@ function getGeolocationErrorMessage(error) {
     default:
       return 'An unknown error occurred.';
   }
+}
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Select Forms
+//   const loginForm = document.getElementById("loginForm");
+//   const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+//   const changePasswordForm = document.getElementById("changePasswordForm");
+
+//   // 🔹 Handle Login Submission
+//   if (loginForm) {
+//     loginForm.addEventListener("submit", function (event) {
+//       event.preventDefault();
+//       const username = document.getElementById("username").value;
+//       const password = document.getElementById("password").value;
+
+//       fetch("http://localhost:3000/login", {
+//       // fetch("https://be-geo-attendance.socrates-exp.asia/login", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ username, password }),
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           if (data.success) {
+//             alert("Login successful!");
+//             // Redirect or handle session
+//           } else {
+//             alert("Login failed: " + data.message);
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("Login Error:", error);
+//         });
+//     });
+//   }
+
+  // 🔹 Handle Reset Password Submission
+  if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const npk = document.getElementById("forgotUsername").value;
+
+      fetch(URL+"/reset-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ npk }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+        })
+        .catch((error) => {
+          console.error("Reset Password Error:", error);
+        });
+    });
+  }
+
+//   // 🔹 Handle Change Password Submission
+//   if (changePasswordForm) {
+//     changePasswordForm.addEventListener("submit", function (event) {
+//       event.preventDefault();
+//       const currentPassword = document.getElementById("currentPassword").value;
+//       const newPassword = document.getElementById("newPassword").value;
+
+//       fetch("https://be-geo-attendance.socrates-exp.asia/change-password", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ currentPassword, newPassword }),
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           alert(data.message);
+//         })
+//         .catch((error) => {
+//           console.error("Change Password Error:", error);
+//         });
+//     });
+//   }
+// });
+
+// 🔹 Show Forms Function
+function showLogin() {
+  document.getElementById("loginPage").classList.remove("hidden");
+  document.getElementById("forgotPasswordPage").classList.add("hidden");
+  document.getElementById("changePasswordPage").classList.add("hidden");
+}
+
+function showForgotPassword() {
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("forgotPasswordPage").classList.remove("hidden");
+  document.getElementById("changePasswordPage").classList.add("hidden");
+}
+
+function showChangePassword() {
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("forgotPasswordPage").classList.add("hidden");
+  document.getElementById("changePasswordPage").classList.remove("hidden");
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Geolocation Attendancesss</title>
+  <title>Geolocation Attendance</title>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
   <style>
@@ -14,19 +14,58 @@
       display: inline-block;
       text-align: left;
     }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h1>Geolocation Attendancess</h1>
-  <form id="loginForm">
-    <label for="username">Username:</label>
-    <input type="text" id="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" required>
-    <br>
-    <button type="submit">Login</button>
-  </form>
+
+  <!-- 🔹 Login Form -->
+  <div id="loginPage">
+    <h1>Geolocation Attendance</h1>
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+      <br>
+      <button type="submit">Login</button>
+      <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
+      <p><a href="#" onclick="showChangePassword()">Change Password</a></p>
+    </form>
+  </div>
+
+  <!-- 🔹 Forgot Password Form -->
+  <div id="forgotPasswordPage" class="hidden">
+    <h1>Reset Password</h1>
+    <form id="forgotPasswordForm">
+      <label for="forgotUsername">Enter NPK:</label>
+      <input type="text" id="forgotUsername" required>
+      <br>
+      <button type="submit">Reset Password</button>
+    </form>
+    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+  </div>
+
+  <!-- 🔹 Change Password Form -->
+  <div id="changePasswordPage" class="hidden">
+    <h1>Change Password</h1>
+    <form id="changePasswordForm">
+      <label for="userId">NPK:</label>
+      <input type="text" id="userId" required>
+      <br>
+      <label for="currentPassword">Current Password:</label>
+      <input type="password" id="currentPassword" required>
+      <br>
+      <label for="newPassword">New Password:</label>
+      <input type="password" id="newPassword" required>
+      <br>
+      <button type="submit">Change Password</button>
+    </form>
+    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+  </div>
 
   <script src="app.js"></script>
 </body>
