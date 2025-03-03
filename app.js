@@ -1,5 +1,5 @@
 
-const URL= "'https://be-geo-attendance.socrates-exp.asia"
+const URL= "https://be-geo-attendance.socrates-exp.asia"
 // const URL= 'http://localhost:3000'
 
 // Register Service Worker
