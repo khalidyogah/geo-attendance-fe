@@ -45,6 +45,7 @@ function checkLocationAndLogin(username, password, userLat, userLon) {
 
   // Check if User is Within Radius
   if (isUserWithinRadius(userLat, userLon, targetLat, targetLon, radius)) {
+    alert('masok');
     // Send Login Request to Backend
     fetch(URL+'/login', {
       method: 'POST',
@@ -136,27 +137,52 @@ function getGeolocationErrorMessage(error) {
     });
   }
 
-//   // 🔹 Handle Change Password Submission
-//   if (changePasswordForm) {
-//     changePasswordForm.addEventListener("submit", function (event) {
-//       event.preventDefault();
-//       const currentPassword = document.getElementById("currentPassword").value;
-//       const newPassword = document.getElementById("newPassword").value;
+  // 🔹 Handle Change Password Submission
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = document.getElementById("passwordUsername").value;
+      const currentPassword = document.getElementById("currentPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
 
-//       fetch("https://be-geo-attendance.socrates-exp.asia/change-password", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ currentPassword, newPassword }),
-//       })
-//         .then((response) => response.json())
-//         .then((data) => {
-//           alert(data.message);
-//         })
-//         .catch((error) => {
-//           console.error("Change Password Error:", error);
-//         });
-//     });
-//   }
+      fetch(URL+"/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, currentPassword, newPassword }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+        })
+        .catch((error) => {
+          console.error("Change Password Error:", error);
+        });
+    });
+  }
+
+  // 🔹 Handle Change Phone Submission
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = document.getElementById("phoneUsername").value;
+      const password = document.getElementById("phonePassword").value;
+      const currentPhone = document.getElementById("currentPhone").value;
+      const newPhone = document.getElementById("newPhone").value;
+
+      fetch(URL+"/change-phone", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, currentPhone, newPhone }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+        })
+        .catch((error) => {
+          console.error("Change Password Error:", error);
+        });
+    });
+  }
 // });
 
 // 🔹 Show Forms Function
@@ -164,16 +190,26 @@ function showLogin() {
   document.getElementById("loginPage").classList.remove("hidden");
   document.getElementById("forgotPasswordPage").classList.add("hidden");
   document.getElementById("changePasswordPage").classList.add("hidden");
+  document.getElementById("changePhonePage").classList.add("hidden");
 }
 
 function showForgotPassword() {
   document.getElementById("loginPage").classList.add("hidden");
   document.getElementById("forgotPasswordPage").classList.remove("hidden");
   document.getElementById("changePasswordPage").classList.add("hidden");
+  document.getElementById("changePhonePage").classList.add("hidden");
 }
 
 function showChangePassword() {
   document.getElementById("loginPage").classList.add("hidden");
   document.getElementById("forgotPasswordPage").classList.add("hidden");
   document.getElementById("changePasswordPage").classList.remove("hidden");
+  document.getElementById("changePhonePage").classList.add("hidden");
+}
+
+function showChangePhone() {
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("forgotPasswordPage").classList.add("hidden");
+  document.getElementById("changePasswordPage").classList.add("hidden");
+  document.getElementById("changePhonePage").classList.remove("hidden");
 }
