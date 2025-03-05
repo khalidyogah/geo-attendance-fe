@@ -1,94 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Geolocation Attendance</title>
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#000000">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    form {
-      display: inline-block;
-      text-align: left;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <title>Geolocation Attendance</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#000000" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      form {
+        display: inline-block;
+        text-align: left;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="formTitle">Login</h1>
 
-  <!-- 🔹 Login Form -->
-  <div id="loginPage">
-    <h1>Geolocation Attendance</h1>
-    <form id="loginForm">
-      <label for="username">Username:</label>
-      <input type="text" id="username" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" required>
-      <br>
-      <button type="submit">Login</button>
-      <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
-      <p><a href="#" onclick="showChangePassword()">Change Password</a></p>
-      <p><a href="#" onclick="showChangePhone()">Change Phone</a></p>
+    <!-- 🔹 Single Form for All Actions -->
+    <form id="userForm">
+      <div id="loginFields">
+        <label for="username">Username (NPK):</label>
+        <input type="text" id="username" required />
+        <br />
+        <label for="password">Password:</label>
+        <input type="password" id="password" required />
+      </div>
+
+      <div id="forgotPasswordFields" class="hidden">
+        <label for="forgotUsername">Enter NPK:</label>
+        <input type="text" id="forgotUsername" required />
+      </div>
+
+      <div id="changePasswordFields" class="hidden">
+        <label for="passwordUsername">NPK:</label>
+        <input type="text" id="passwordUsername" required />
+        <br />
+        <label for="currentPassword">Current Password:</label>
+        <input type="password" id="currentPassword" required />
+        <br />
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" required />
+      </div>
+
+      <div id="changePhoneFields" class="hidden">
+        <label for="phoneUsername">NPK:</label>
+        <input type="text" id="phoneUsername" required />
+        <br />
+        <label for="phonePassword">Current Password:</label>
+        <input type="password" id="phonePassword" required />
+        <br />
+        <label for="currentPhone">Old Phone:</label>
+        <input type="number" id="currentPhone" required />
+        <br />
+        <label for="newPhone">New Phone:</label>
+        <input type="number" id="newPhone" required />
+      </div>
+
+      <br />
+      <button type="submit">Submit</button>
     </form>
-  </div>
 
-  <!-- 🔹 Forgot Password Form -->
-  <div id="forgotPasswordPage" class="hidden">
-    <h1>Reset Password</h1>
-    <form id="forgotPasswordForm">
-      <label for="forgotUsername">Enter NPK:</label>
-      <input type="text" id="forgotUsername" required>
-      <br>
-      <button type="submit">Reset Password</button>
-    </form>
-    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
-  </div>
-
-  <!-- 🔹 Change Password Form -->
-  <div id="changePasswordPage" class="hidden">
-    <h1>Change Password</h1>
-    <form id="changePasswordForm">
-      <label for="passwordUsername">NPK:</label>
-      <input type="text" id="passwordUsername" required>
-      <br>
-      <label for="currentPassword">Current Password:</label>
-      <input type="password" id="currentPassword" required>
-      <br>
-      <label for="newPassword">New Password:</label>
-      <input type="password" id="newPassword" required>
-      <br>
-      <button type="submit">Change Password</button>
-    </form>
-    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
-  </div>
-
-  <!-- 🔹 Change Phone Form -->
-  <div id="changePhonePage" class="hidden">
-    <h1>Change Phone</h1>
-    <form id="changePhoneForm">
-      <label for="phoneUsername">NPK:</label>
-      <input type="text" id="phoneUsername" required>
-      <br>
-      <label for="phonePassword">Current Password:</label>
-      <input type="password" id="phonePassword" required>
-      <br>
-      <label for="currentPhone">old phone:</label>
-      <input type="number" id="currentPhone" required>
-      <br>
-      <label for="newPhone">new phone:</label>
-      <input type="number" id="newPhone" required>
-      <br>
-      <button type="submit">Change Phone</button>
-    </form>
-    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
-  </div>
-
-  <script src="app.js"></script>
-</body>
+    <p>
+      <a href="#" onclick="showForm('forgotPassword')">Forgot Password?</a>
+    </p>
+    <p>
+      <a href="#" onclick="showForm('changePassword')">Change Password</a>
+    </p>
+    <p><a href="#" onclick="showForm('changePhone')">Change Phone</a></p>
+    <p><a href="#" onclick="showForm('login')">Back to Login</a></p>
+    <script src="app.js"></script>
+  </body>
 </html>
