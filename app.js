@@ -54,7 +54,7 @@ document.getElementById("userForm").addEventListener("submit", function(event) {
       (position) => {
         const userLat = position.coords.latitude;
         const userLon = position.coords.longitude;
-        console.log("userLat,userLon");
+        console.log(userLat,userLon);
 
         endpoint = "/login";
         payload = {
@@ -63,25 +63,24 @@ document.getElementById("userForm").addEventListener("submit", function(event) {
           userLat: userLat, // Attach latitude
           userLon: userLon  // Attach longitude
         };
-
-        sendRequest(endpoint, payload);
+        sendRequest(endpoint, payload)
       },
       (error) => {
         console.error("Geolocation error:", error);
         alert("Location access denied. Enable location to proceed.");
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      }
     );
   } else if (formType === "Reset Password") {
     endpoint = "/reset-link";
     payload = { username: document.getElementById("forgotUsername").value };
+    sendRequest(endpoint, payload)
   } else if (formType === "Change Password") {
     endpoint = "/change-password";
     payload = {
       username: document.getElementById("passwordUsername").value,
       currentPassword: document.getElementById("currentPassword").value,
       newPassword: document.getElementById("newPassword").value
-    };
+    };sendRequest(endpoint, payload)
   } else if (formType === "Change Phone") {
     endpoint = "/change-phone";
     payload = {
@@ -90,9 +89,14 @@ document.getElementById("userForm").addEventListener("submit", function(event) {
       currentPhone: document.getElementById("currentPhone").value,
       newPhone: document.getElementById("newPhone").value
     };
+    sendRequest(endpoint, payload)
   }
 
-  // Send request
+  
+});
+
+// Send request
+function sendRequest(endpoint, payload){
   fetch(URL+endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -101,6 +105,7 @@ document.getElementById("userForm").addEventListener("submit", function(event) {
     .then(response => response.json())
     .then(data => alert(data.message))
     .catch(error => console.error("Error:", error));
-});
+}
+
 
 showForm('login');
